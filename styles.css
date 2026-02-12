@@ -99,7 +99,8 @@ body{
   position: absolute;
   top: 12px;
   right: 12px;
-  width: min(82%, 420px);
+  left: 12px;
+  max-width: 420px;
   padding: 10px 12px;
   border-radius: 16px;
   background: rgba(255,255,255,0.92);
@@ -121,7 +122,7 @@ body{
 .eli{
   border: 0;
   background: transparent;
-  padding: 0;
+  padding-top: 64px;
   width: min(80%, 420px);
   aspect-ratio: 1 / 1;
   display: grid;
