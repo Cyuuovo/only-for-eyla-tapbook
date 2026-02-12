@@ -16,7 +16,7 @@ rules:
   default_weight: 1
 
   # 按钮互动后自动回落（睡觉除外）
-  action_reset_ms: 3500
+  action_reset_ms: 3000
 
   # 睡觉：保持睡，直到被唤醒
   sleep_persist: true
@@ -61,7 +61,7 @@ pools:
   tap:
     params:
       window_ms: 120000        # 2分钟滚动计数窗口
-      idle_reset_ms: 5000     # 5秒无戳清空计数并回到normal
+      idle_reset_ms: 3000     # 3秒无戳清空计数并回到normal
       thresholds:              # 计数分级（基于 window_ms 内的tap次数）
         lv1: [1, 4]
         lv2: [5, 10]
