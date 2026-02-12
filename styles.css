@@ -301,6 +301,7 @@ body{
   border-top: 12px solid rgba(255,255,255,0.92); /* ✅ 跟泡泡一致 */
   transform: translateY(-1px);
   pointer-events: none;
+  filter: drop-shadow(0 6px 10px rgba(0,0,0,0.06));
 }
 
 /* 内层：填充三角（比外层小一点，形成描边） */
