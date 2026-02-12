@@ -13,7 +13,7 @@ const moodText = document.getElementById("moodText");
 const now = () => Date.now();
 
 function setBubble(text){ bubbleText.textContent = text; }
-function showBubble(text){ showBubble(text); bubble.classList.remove("is-hidden"); }
+function showBubble(text){ setBubble(text); bubble.classList.remove("is-hidden"); }
 function hideBubble(){ bubble.classList.add("is-hidden"); }
 function setMood(mood){ moodText.textContent = mood; }
 function setImage(name){ eliImg.src = `./assets/${name}.png`; }
