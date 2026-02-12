@@ -288,29 +288,32 @@ body{
   position: relative;
 }
 
+/* 外层：描边三角 */
 .bubble::after{
   content: "";
   position: absolute;
-  right: 18px;
+  right: 22px;
   top: 100%;
-  width: 16px;
-  height: 16px;
-  background: rgba(199,164,143,0.40); /* 描边色 */
-  transform: translateY(-7px) rotate(45deg);
-  border-radius: 3px;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 12px solid rgba(199,164,143,0.40);
+  transform: translateY(-1px);
   pointer-events: none;
 }
 
+/* 内层：填充三角（比外层小一点，形成描边） */
 .bubble::before{
   content: "";
   position: absolute;
-  right: 19px;   /* +1px 内缩 */
+  right: 23px;
   top: 100%;
-  width: 14px;
-  height: 14px;
-  background: rgba(255,255,255,0.92); /* 与泡泡主体一致 */
-  transform: translateY(-6px) rotate(45deg);
-  border-radius: 3px;
+  width: 0;
+  height: 0;
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  border-top: 11px solid rgba(255,255,255,0.92);
+  transform: translateY(-2px);
   pointer-events: none;
 }
-
