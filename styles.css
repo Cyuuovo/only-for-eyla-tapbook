@@ -1,11 +1,22 @@
 :root{
-  --bg: #ffffff;
-  --panel: rgba(0,0,0,0.04);
-  --text: #111;
-  --muted: rgba(0,0,0,0.6);
-  --radius: 18px;
+  /* 主题：奶油米杏 × 柔雾灰（Eyla） */
+  --bg: #FDF3E7;              /* 奶油米杏 */
+  --panel: rgba(253,243,231,0.72);
+  --panel-strong: rgba(253,243,231,0.90);
+
+  --accent: #B89D8A;          /* 浅焦糖（按钮高亮/强调） */
+  --accent-weak: rgba(184,157,138,0.18);
+
+  --text: #3E3E3E;            /* 深棕灰 */
+  --muted: rgba(62,62,62,0.62);
+
+  --radius: 20px;
   --gap: 12px;
 
+  --shadow: 0 10px 24px rgba(0,0,0,0.10);
+  --shadow-soft: 0 6px 16px rgba(0,0,0,0.07);
+
+  /* 手机优先比例（可随时改） */
   --topbar-h: 10vh;
   --stage-h: 55vh;
   --bottom-h: 35vh;
@@ -14,7 +25,7 @@
 *{ box-sizing: border-box; }
 body{
   margin: 0;
-  background: var(--bg);
+  background: radial-gradient(1200px 600px at 20% 0%, #ffffff 0%, var(--bg) 58%, #f3eee8 100%);
   color: var(--text);
   font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans SC", "Helvetica Neue", Arial, sans-serif;
 }
@@ -36,14 +47,19 @@ body{
   padding: 10px 12px;
   border-radius: var(--radius);
   background: var(--panel);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(62,62,62,0.06);
 }
 .topbar__main{
-  font-weight: 700;
+  font-weight: 800;
+  letter-spacing: 0.3px;
   font-size: 16px;
   line-height: 1.15;
 }
 .topbar__sub{
   font-size: 13px;
+  letter-spacing: 0.2px;
   color: var(--muted);
   margin-top: 4px;
 }
@@ -65,6 +81,10 @@ body{
   display: grid;
   place-items: center;
   overflow: hidden;
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(62,62,62,0.06);
+  background: linear-gradient(180deg, rgba(253,243,231,0.85) 0%, rgba(246,240,232,0.70) 100%);
 }
 
 /* 泡泡固定右上角 */
@@ -76,7 +96,7 @@ body{
   width: min(82%, 420px);
   padding: 10px 12px;
   border-radius: 16px;
-  background: rgba(255,255,255,0.85);
+  background: var(--panel-strong);
   backdrop-filter: blur(6px);
   box-shadow: 0 6px 18px rgba(0,0,0,0.08);
 }
@@ -129,12 +149,16 @@ body{
   grid-auto-rows: minmax(44px, auto);
   gap: 10px;
   align-content: start;
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(62,62,62,0.06);
 }
 .action{
+  transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
   border: 0;
   border-radius: 999px;
   padding: 10px 10px;
-  background: rgba(255,255,255,0.9);
+  background: rgba(255,255,255,0.92);
   font-size: 13px;
   line-height: 1.2;
 }
@@ -147,6 +171,9 @@ body{
   display: flex;
   flex-direction: column;
   gap: 10px;
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(62,62,62,0.06);
 }
 .profile__name{
   font-weight: 800;
@@ -160,6 +187,10 @@ body{
 }
 .profile__row strong{
   color: var(--text);
+}
+
+.profile__row strong{
+  font-variant-numeric: tabular-nums;
 }
 
 /* Q弹 */
@@ -178,4 +209,44 @@ body{
   opacity: 0;
   transform: translateY(-4px);
   pointer-events: none;
+}
+
+/* 泡泡小尾巴（更像对话） */
+.bubble::after{
+  content: "";
+  position: absolute;
+  right: 18px;
+  top: 100%;
+  width: 14px;
+  height: 14px;
+  background: var(--panel-strong);
+  transform: translateY(-6px) rotate(45deg);
+  border-radius: 3px;
+  box-shadow: 6px 6px 14px rgba(0,0,0,0.03);
+}
+
+.action{
+  box-shadow: 0 6px 14px rgba(0,0,0,0.06);
+}
+.action:active{
+  transform: scale(0.98);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.action:focus-visible{
+  outline: 2px solid var(--accent-weak);
+  box-shadow: 0 10px 18px rgba(184,157,138,0.20);
+}
+
+.profile__name{
+  position: relative;
+}
+.profile__name::after{
+  content: "";
+  display: block;
+  height: 3px;
+  width: 28px;
+  margin-top: 8px;
+  border-radius: 999px;
+  background: var(--accent);
+  opacity: 0.65;
 }
