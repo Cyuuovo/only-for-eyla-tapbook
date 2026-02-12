@@ -124,7 +124,7 @@ body{
   background: transparent;
   padding-top: 64px;
   width: min(80%, 420px);
-  aspect-ratio: 1 / 1;
+  height: calc(100% - 18px);
   display: grid;
   place-items: center;
   margin-top: 18px;
