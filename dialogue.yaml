@@ -17,12 +17,12 @@ status_labels:
   hug: 收到抱抱！
   confess: 被告白了！
   surprise: 收到小惊喜
-  style: 被整理造型
+  groom: 被整理造型
   sleep: 眯觉呼噜噜
-  tap_lv1: 戳戳一级
-  tap_lv2: 戳戳二级
-  tap_lv3: 戳戳三级
-  tap_lv4: 戳戳四级
+  tap_lv1: 超级开心
+  tap_lv2: 有点害羞
+  tap_lv3: 略显局促
+  tap_lv4: 戳炸毛了
 
 # 抽语料的小规则（你也可以先不管）
 rules:
