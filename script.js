@@ -327,6 +327,16 @@ async function init(){
   CFG.__loadedAt = new Date().toISOString();
   // 调试：确认 YAML 已加载
   console.log('YAML loaded at', CFG.__loadedAt);
+  // ---- 自动预加载：把 YAML 里 moods 用到的图全缓存起来 ----
+  try{
+    const uniq = new Set(Object.values(CFG?.moods || {}));
+    for (const name of uniq){
+      const img = new Image();
+      img.decoding = "async";
+      img.loading = "eager";
+      img.src = `./assets/${name}.png`;
+    }
+  }catch(e){}
 
   setImage(CFG.moods.neutral);
   setMood("normal");
