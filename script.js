@@ -10,6 +10,15 @@ const cntKisses = document.getElementById("cntKisses");
 const cntTaps = document.getElementById("cntTaps");
 const moodText = document.getElementById("moodText");
 
+// ====== 兜底：把运行时错误显示到泡泡里（便于手机排查） ======
+window.addEventListener('error', (ev) => {
+  try{ showBubble(`（出错了：${ev.message}）`); setMood('error'); }catch{}
+});
+window.addEventListener('unhandledrejection', (ev) => {
+  try{ showBubble(`（出错了：${String(ev.reason?.message || ev.reason)}）`); setMood('error'); }catch{}
+});
+
+
 const now = () => Date.now();
 
 function setBubble(text){ bubbleText.textContent = text; }
@@ -181,6 +190,7 @@ function bounce(){
 }
 
 function handleTap(){
+  try{
   const t = now();
 
   // 睡觉：5秒内戳满3次才会被唤醒；否则随机嘟囔
@@ -272,10 +282,15 @@ function handleTap(){
 
   tapLockUntil = t + (lv === "lv4" ? holdLv4 : (lv === "lv3" ? holdLv3 : holdBase));
   bounce();
+  }catch(e){
+    console.error(e);
+    try{ showBubble(`（戳戳出错：${e.message || e}）`); setMood("error"); }catch{}
+  }
 }
 
 // ====== 按钮互动（从 YAML 抽语料）=====
 function handleAction(actionKey){
+  try{
   if (sleeping && actionKey !== "nap" && (CFG?.rules?.wake_on_action ?? true)){
     wakeUp("被你叫醒了……哼。");
   }
@@ -298,6 +313,10 @@ function handleAction(actionKey){
   applyLine(line, actionKey);
 
   scheduleResetIfNeeded();
+  }catch(e){
+    console.error(e);
+    try{ showBubble(`（按钮出错：${e.message || e}）`); setMood("error"); }catch{}
+  }
 }
 
 // ====== 初始化 ======
@@ -305,6 +324,9 @@ async function init(){
   renderCounters();
 
   CFG = await fetchYaml();
+  CFG.__loadedAt = new Date().toISOString();
+  // 调试：确认 YAML 已加载
+  console.log('YAML loaded at', CFG.__loadedAt);
 
   setImage(CFG.moods.neutral);
   setMood("normal");
