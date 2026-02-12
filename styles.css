@@ -69,6 +69,7 @@ body{
 
 /* 泡泡固定右上角 */
 .bubble{
+  transition: opacity 180ms ease, transform 180ms ease;
   position: absolute;
   top: 12px;
   right: 12px;
@@ -170,4 +171,11 @@ body{
   40%{ transform: scale(1.04) translateY(-3px); }
   70%{ transform: scale(0.98) translateY(1px); }
   100%{ transform: scale(1); }
+}
+
+
+.bubble.is-hidden{
+  opacity: 0;
+  transform: translateY(-4px);
+  pointer-events: none;
 }

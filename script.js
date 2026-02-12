@@ -1,6 +1,7 @@
 // v0.2 — 接入 YAML 语料 + 本地计数 + 戳戳等级/连戳 + 5秒回落 + 睡觉S1唤醒
 // 依赖：index.html 已引入 js-yaml（window.jsyaml）
 
+const bubble = document.getElementById("bubble");
 const bubbleText = document.getElementById("bubbleText");
 const eliBtn = document.getElementById("eli");
 const eliImg = document.getElementById("eliImg");
@@ -12,6 +13,8 @@ const moodText = document.getElementById("moodText");
 const now = () => Date.now();
 
 function setBubble(text){ bubbleText.textContent = text; }
+function showBubble(text){ showBubble(text); bubble.classList.remove("is-hidden"); }
+function hideBubble(){ bubble.classList.add("is-hidden"); }
 function setMood(mood){ moodText.textContent = mood; }
 function setImage(name){ eliImg.src = `./assets/${name}.png`; }
 
@@ -107,7 +110,7 @@ function weightedPick(items, poolKey){
 
 function applyLine(line, stateLabel){
   if (!line) return;
-  setBubble(line.text || "");
+  showBubble(line.text || "");
   if (line.mood && CFG.moods && CFG.moods[line.mood]){
     setImage(CFG.moods[line.mood]);
   }
@@ -131,18 +134,20 @@ function scheduleResetIfNeeded(){
   actionResetTimer = setTimeout(() => {
     setImage(CFG.moods.neutral);
     setMood("normal");
+  hideBubble();
   }, ms);
 }
 function wakeUp(msg="……嗯？你来啦。"){
   sleeping = false;
   setImage(CFG.moods.neutral);
   setMood("normal");
-  setBubble(msg);
+  showBubble(msg);
   scheduleResetIfNeeded();
 }
 
 // ====== 戳戳：滚动计数 + 冷却清空 + 情绪锁 + 连戳惩罚 ======
 let tapTimes = [];
+let sleepTapTimes = [];
 let lastTapAt = 0;
 let tapLockUntil = 0;
 let bounceLockUntil = 0;
@@ -178,11 +183,38 @@ function bounce(){
 function handleTap(){
   const t = now();
 
-  // S1：睡觉时戳=叫醒
+  // 睡觉：5秒内戳满3次才会被唤醒；否则随机嘟囔
   if (sleeping && (CFG?.rules?.wake_on_tap ?? true)){
-    wakeUp("……嗯？（被你戳醒了）");
-    bounce();
-    return;
+    const t0 = now();
+    const win = 5000;
+
+    // 10秒无戳清空（睡觉也适用）
+    const idleReset = CFG?.pools?.tap?.params?.idle_reset_ms ?? 10000;
+    if (lastTapAt && (t0 - lastTapAt >= idleReset)){
+      sleepTapTimes = [];
+    }
+    lastTapAt = t0;
+
+    // 计数（睡觉时戳也算“今日戳戳”）
+    incCounter("taps", 1);
+
+    sleepTapTimes.push(t0);
+    sleepTapTimes = sleepTapTimes.filter(x => x >= t0 - win);
+
+    if (sleepTapTimes.length >= 3){
+      sleepTapTimes = [];
+      wakeUp("……嗯？（被你戳醒了）");
+      bounce();
+      return;
+    } else {
+      const choices = ["Zzz……", "😴😴😴", "唔…我还没睡醒…"];
+      const msg = choices[Math.floor(Math.random() * choices.length)];
+      showBubble(msg);
+      setImage(CFG.moods.sleep);
+      setMood("sleep");
+      bounce();
+      return;
+    }
   }
 
   // 10秒无戳清空
@@ -295,6 +327,6 @@ async function init(){
 
 init().catch(err => {
   console.error(err);
-  setBubble("（语料加载失败：请确认 dialogue.yaml / 语料v3.yaml 已放在仓库根目录）");
+  showBubble("（语料加载失败：请确认 dialogue.yaml / 语料v3.yaml 已放在仓库根目录）");
   setMood("error");
 });
