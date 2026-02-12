@@ -99,8 +99,9 @@ body{
   position: absolute;
   top: 12px;
   right: 12px;
-  left: 12px;
-  max-width: 420px;
+  left: auto;
+  width: min(82%, 420px);
+  z-index: 20; /* ✅ 保证泡泡在Eli之上 */
   padding: 10px 12px;
   border-radius: 16px;
   background: rgba(255,255,255,0.92);
@@ -120,6 +121,8 @@ body{
 
 /* Eli（可戳） */
 .eli{
+  z-index: 10;
+
   border: 0;
   background: transparent;
 

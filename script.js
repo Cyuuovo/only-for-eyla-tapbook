@@ -184,9 +184,9 @@ function bounce(){
   if (t < bounceLockUntil) return;
   bounceLockUntil = t + cd;
 
-  eliBtn.classList.remove("bounce");
-  void eliBtn.offsetWidth;
-  eliBtn.classList.add("bounce");
+  eliImg.classList.remove("bounce");
+  void eliImg.offsetWidth;
+  eliImg.classList.add("bounce");
 }
 
 function handleTap(){
