@@ -122,13 +122,18 @@ body{
 .eli{
   border: 0;
   background: transparent;
-  padding-top: 64px;
+
+  position: absolute;      /* ✅ 钉在角色区里 */
+  left: 50%;
+  bottom: 12px;            /* ✅ 距离角色区底部的呼吸感，可调 0~20 */
+  transform: translateX(-50%);
+
   width: min(80%, 420px);
-  height: calc(100% - 18px);
+
   display: grid;
-  place-items: end center;   /* ✅ 垂直贴底、水平居中 */
-  padding-bottom: 12px;      /* ✅ 让它离底部留一点呼吸感（可调 0~16） */
-  margin-top: 18px;
+  place-items: end center; /* ✅ 图片贴底居中 */
+
+  padding-top: 64px;       /* ✅ 头顶给泡泡留空间（可调） */
 }
 
 .eli img{
