@@ -9,6 +9,7 @@ const eliImg = document.getElementById("eliImg");
 const cntKisses = document.getElementById("cntKisses");
 const cntTaps = document.getElementById("cntTaps");
 const moodText = document.getElementById("moodText");
+const dateText = document.getElementById("dateText");
 
 
 
@@ -73,6 +74,28 @@ window.addEventListener('unhandledrejection', (ev) => {
 
 
 const now = () => Date.now();
+
+function formatToday(){
+  const d = new Date();
+  const ws = ['日','一','二','三','四','五','六'];
+  return `${d.getMonth()+1}月${d.getDate()}日 周${ws[d.getDay()]}`;
+}
+
+function updateDate(){
+  if(!dateText) return;
+  dateText.textContent = formatToday();
+}
+
+function scheduleMidnightRefresh(){
+  const d = new Date();
+  const next = new Date(d.getFullYear(), d.getMonth(), d.getDate()+1, 0, 0, 1);
+  const ms = next.getTime() - d.getTime();
+  setTimeout(()=>{
+    updateDate();
+    scheduleMidnightRefresh();
+  }, ms);
+}
+
 
 function setBubble(text){ bubbleText.textContent = text; }
 function showBubble(text){ setBubble(text); bubble.classList.remove("is-hidden"); }
@@ -198,6 +221,9 @@ function scheduleResetIfNeeded(){
   actionResetTimer = setTimeout(() => {
     setImage(CFG.moods.neutral);
     setMood("normal");
+    updateDate();
+    scheduleMidnightRefresh();
+    document.addEventListener('visibilitychange', () => { if(!document.hidden) updateDate(); });
   hideBubble();
   }, ms);
 }
