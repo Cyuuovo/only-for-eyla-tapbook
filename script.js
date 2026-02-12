@@ -86,6 +86,17 @@ function updateDate(){
   dateText.textContent = formatToday();
 }
 
+
+
+let __dateTickerStarted = false;
+function startDateTicker(){
+  if (__dateTickerStarted) return;
+  __dateTickerStarted = true;
+  updateDate();
+  // 每分钟刷新一次（跨天时会自动更新）
+  setInterval(updateDate, 60 * 1000);
+}
+
 function scheduleMidnightRefresh(){
   const d = new Date();
   const next = new Date(d.getFullYear(), d.getMonth(), d.getDate()+1, 0, 0, 1);
@@ -137,6 +148,8 @@ function saveStore(){ localStorage.setItem(STORE_KEY, JSON.stringify(store)); }
 
 let store = loadStore();
 
+
+  startDateTicker();
 function incCounter(key, delta=1){
   store.counters[key] = (store.counters[key] || 0) + delta;
   saveStore();
