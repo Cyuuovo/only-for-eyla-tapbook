@@ -298,7 +298,7 @@ body{
   height: 0;
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
-  border-top: 12px solid rgba(199,164,143,0.40);
+  border-top: 12px solid rgba(255,255,255,0.92); /* ✅ 跟泡泡一致 */
   transform: translateY(-1px);
   pointer-events: none;
 }
