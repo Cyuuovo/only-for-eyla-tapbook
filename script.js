@@ -24,7 +24,9 @@ const now = () => Date.now();
 function setBubble(text){ bubbleText.textContent = text; }
 function showBubble(text){ setBubble(text); bubble.classList.remove("is-hidden"); }
 function hideBubble(){ bubble.classList.add("is-hidden"); }
-function setMood(mood){ moodText.textContent = mood; }
+function setMood(mood){
+  moodText.textContent = (CFG?.status_labels?.[mood] ?? mood);
+}
 function setImage(name){ eliImg.src = `./assets/${name}.png`; }
 
 // ====== 本地存储（当天计数） ======
