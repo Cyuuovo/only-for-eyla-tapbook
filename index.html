@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Only for Eyla — Eli每日戳戳互动本</title>
+
+  <link rel="manifest" href="./manifest.json" />
+  <meta name="theme-color" content="#ffffff" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="app">
+
+    <!-- 标题栏 -->
+    <header class="topbar">
+      <div class="topbar__title">
+        <div class="topbar__main">Only for Eyla</div>
+        <div class="topbar__sub">—— Eli每日戳戳互动本</div>
+      </div>
+      <button class="topbar__icon" type="button" aria-label="设置（占位）" title="设置（占位）">⚙️</button>
+    </header>
+
+    <!-- 角色区 -->
+    <main class="stage" aria-label="Eli 角色区">
+      <!-- 对话泡泡（固定右上角） -->
+      <div class="bubble" id="bubble" role="status" aria-live="polite">
+        <div class="bubble__text" id="bubbleText">欢迎回家，Eyla。</div>
+      </div>
+
+      <!-- Eli（可戳） -->
+      <button class="eli" id="eli" type="button" aria-label="戳戳 Eli">
+        <img id="eliImg" src="./assets/eli_neutral.png" alt="Q版Eli" />
+      </button>
+    </main>
+
+    <!-- 底部信息区：左按钮 + 右档案 -->
+    <section class="bottom" aria-label="互动区">
+      <div class="actions" aria-label="互动按钮">
+        <button class="action" type="button" data-action="kiss">亲亲Eli</button>
+        <button class="action" type="button" data-action="hug">抱抱Eli</button>
+        <button class="action" type="button" data-action="confess">对Eli说我喜欢你</button>
+        <button class="action" type="button" data-action="surprise">给Eli小惊喜</button>
+        <button class="action" type="button" data-action="groom">帮Eli整理造型</button>
+        <button class="action" type="button" data-action="nap">和Eli一起眯觉</button>
+      </div>
+
+      <aside class="profile" aria-label="档案卡">
+        <div class="profile__name">Eli</div>
+        <div class="profile__row">
+          <span>好感度</span><strong>∞</strong>
+        </div>
+        <div class="profile__row">
+          <span>今日亲亲</span><strong id="cntKisses">0</strong>
+        </div>
+        <div class="profile__row">
+          <span>今日戳戳</span><strong id="cntTaps">0</strong>
+        </div>
+        <div class="profile__row">
+          <span>状态</span><strong id="moodText">normal</strong>
+        </div>
+      </aside>
+    </section>
+
+  </div>
+
+  <script src="./script.js"></script>
+</body>
+</html>

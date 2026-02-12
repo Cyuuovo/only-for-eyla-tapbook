@@ -1,0 +1,9 @@
+{
+  "name": "Only for Eyla — Eli每日戳戳互动本",
+  "short_name": "Eli戳戳",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": []
+}
