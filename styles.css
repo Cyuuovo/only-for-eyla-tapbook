@@ -128,7 +128,7 @@ body{
 
   position: absolute;      /* ✅ 钉在角色区里 */
   left: 50%;
-  bottom: 12px;            /* ✅ 距离角色区底部的呼吸感，可调 0~20 */
+  bottom: 6px;            /* ✅ 距离角色区底部的呼吸感，可调 0~20 */
   transform: translateX(-50%);
 
   width: min(80%, 420px);
