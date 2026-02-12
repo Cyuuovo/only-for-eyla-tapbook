@@ -348,6 +348,50 @@ body.dark{
 }
 body.dark .topbar__icon{ filter: brightness(1.05); }
 
+/* 夜间模式：让「底色、角色区、泡泡、按钮」都更清晰 */
+body.dark{
+  /* 最底层背景再压暗一点（避免灰白发雾） */
+  background:
+    radial-gradient(1100px 520px at 30% -10%, rgba(215,180,157,0.10), transparent 55%),
+    radial-gradient(900px 700px at 70% 0%, rgba(110,80,60,0.14), transparent 60%),
+    linear-gradient(180deg, #161310, #0F0D0C);
+}
+
+body.dark .stage{
+  /* 角色区背景更稳一些，和泡泡区分开 */
+  background: linear-gradient(180deg, rgba(60,52,46,0.42), rgba(26,22,19,0.22));
+  border-color: rgba(255,255,255,0.12);
+}
+
+body.dark .bubble{
+  background: rgba(22,19,17,0.78);
+  border: 1px solid rgba(255,255,255,0.16);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.46);
+}
+
+/* 泡泡小尾巴：外描边 + 内填充（夜间版） */
+body.dark .bubble::after{
+  border-top-color: rgba(255,255,255,0.16);
+}
+body.dark .bubble::before{
+  border-top-color: rgba(22,19,17,0.78);
+}
+
+body.dark .action{
+  /* 果冻按钮在夜间：更亮一点，但不刺眼 */
+  background:
+    linear-gradient(180deg, rgba(92,78,68,0.62), rgba(28,24,21,0.62));
+  border: 1px solid rgba(255,255,255,0.18);
+  color: var(--btn-text);
+}
+body.dark .action::before{
+  background: radial-gradient(180px 110px at 50% 10%, rgba(255,255,255,0.16), transparent 60%);
+}
+body.dark .action::after{
+  background: radial-gradient(120px 70px at 20% 20%, rgba(255,255,255,0.12), transparent 55%);
+  opacity: 0.85;
+}
+
 
 /* ===== 设置弹窗（Modal）===== */
 .modal{
