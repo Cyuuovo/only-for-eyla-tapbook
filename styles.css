@@ -294,10 +294,6 @@ body{
 
 
 /* 泡泡小尾巴：双层（外描边 + 内填充），避免“露馅” */
-.bubble{
-  position: relative;
-}
-
 /* 外层：描边三角 */
 .bubble::after{
   content: "";
