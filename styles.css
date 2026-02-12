@@ -105,7 +105,7 @@ body{
   background: rgba(255,255,255,0.92);
   backdrop-filter: blur(6px);
   box-shadow: 0 10px 24px rgba(0,0,0,0.10);
-  border: 1px solid rgba(62,62,62,0.10);
+  border: 1px solid rgba(199,164,143,0.40);
 }
 .bubble__text{
   font-size: 14px;
@@ -277,7 +277,7 @@ body{
   background: rgba(255,255,255,0.92);
   transform: translateY(-6px) rotate(45deg);
   border-radius: 3px;
-  box-shadow: 6px 6px 14px rgba(0,0,0,0.03);
+  box-shadow: 6px 6px 14px rgba(0,0,0,0.03), 0 0 0 1px rgba(199,164,143,0.30);
 }
 
 
