@@ -10,6 +10,59 @@ const cntKisses = document.getElementById("cntKisses");
 const cntTaps = document.getElementById("cntTaps");
 const moodText = document.getElementById("moodText");
 
+
+
+// ===== 设置 & 夜间模式 =====
+const settingsBtn = document.getElementById("settingsBtn");
+const settingsModal = document.getElementById("settingsModal");
+const themeToggle = document.getElementById("themeToggle");
+const THEME_KEY = "ofe_theme";
+
+function applyTheme(mode){
+  const isDark = (mode === "dark");
+  document.body.classList.toggle("dark", isDark);
+  try{ localStorage.setItem(THEME_KEY, isDark ? "dark" : "light"); }catch(e){}
+  if (themeToggle) themeToggle.checked = isDark;
+
+  // 让 iOS 顶部状态栏颜色更贴合（可选）
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) meta.setAttribute("content", isDark ? "#1F1A17" : "#ffffff");
+}
+function initTheme(){
+  let saved = null;
+  try{ saved = localStorage.getItem(THEME_KEY); }catch(e){}
+  applyTheme(saved === "dark" ? "dark" : "light");
+}
+
+function openSettings(){
+  if (!settingsModal) return;
+  settingsModal.classList.add("is-open");
+  settingsModal.setAttribute("aria-hidden", "false");
+}
+function closeSettings(){
+  if (!settingsModal) return;
+  settingsModal.classList.remove("is-open");
+  settingsModal.setAttribute("aria-hidden", "true");
+}
+
+if (settingsBtn){
+  settingsBtn.addEventListener("click", openSettings);
+}
+if (settingsModal){
+  settingsModal.addEventListener("click", (e)=>{
+    const t = e.target;
+    if (t && t.dataset && t.dataset.close) closeSettings();
+  });
+  window.addEventListener("keydown", (e)=>{
+    if (e.key === "Escape" && settingsModal.classList.contains("is-open")) closeSettings();
+  });
+}
+if (themeToggle){
+  themeToggle.addEventListener("change", ()=> applyTheme(themeToggle.checked ? "dark" : "light"));
+}
+initTheme();
+
+
 // ====== 兜底：把运行时错误显示到泡泡里（便于手机排查） ======
 window.addEventListener('error', (ev) => {
   try{ showBubble(`（出错了：${ev.message}）`); setMood('error'); }catch{}

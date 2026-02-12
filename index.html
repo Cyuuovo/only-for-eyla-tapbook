@@ -18,7 +18,7 @@
         <div class="topbar__main">Only for Eyla</div>
         <div class="topbar__sub">—— Eli每日戳戳互动本</div>
       </div>
-      <button class="topbar__icon" type="button" aria-label="设置（占位）" title="设置（占位）">⚙️</button>
+      <button class="topbar__icon" type="button" aria-label="设置（占位）" title="设置（占位）" id="settingsBtn">⚙️</button>
     </header>
 
     <!-- 角色区 -->
@@ -63,6 +63,30 @@
     </section>
 
   </div>
+
+
+  <!-- 设置弹窗 -->
+  <div class="modal" id="settingsModal" aria-hidden="true">
+    <div class="modal__backdrop" data-close="1"></div>
+    <div class="modal__panel" role="dialog" aria-modal="true" aria-label="设置">
+      <div class="modal__header">
+        <div class="modal__title">设置</div>
+        <button class="modal__close" type="button" aria-label="关闭" title="关闭" data-close="1">✕</button>
+      </div>
+
+      <div class="modal__item">
+        <div class="modal__label">夜间模式</div>
+        <label class="switch" aria-label="夜间模式开关">
+          <input type="checkbox" id="themeToggle" />
+          <span class="switch__track"></span>
+          <span class="switch__thumb"></span>
+        </label>
+      </div>
+
+      <div class="modal__hint">偏深咖柔雾风格，和奶油米杏更配。</div>
+    </div>
+  </div>
+
 
   <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
   <script src="./script.js"></script>
