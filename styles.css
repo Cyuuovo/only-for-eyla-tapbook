@@ -266,19 +266,6 @@ body{
   pointer-events: none;
 }
 
-/* 泡泡小尾巴（更像对话） */
-.bubble::after{
-  content: "";
-  position: absolute;
-  right: 18px;
-  top: 100%;
-  width: 14px;
-  height: 14px;
-  background: rgba(255,255,255,0.92);
-  transform: translateY(-6px) rotate(45deg);
-  border-radius: 3px;
-  box-shadow: 6px 6px 14px rgba(0,0,0,0.03), 0 0 0 1px rgba(199,164,143,0.30);
-}
 
 
 .profile__name{
@@ -294,3 +281,36 @@ body{
   background: var(--accent);
   opacity: 0.65;
 }
+
+
+/* 泡泡小尾巴：双层（外描边 + 内填充），避免“露馅” */
+.bubble{
+  position: relative;
+}
+
+.bubble::after{
+  content: "";
+  position: absolute;
+  right: 18px;
+  top: 100%;
+  width: 16px;
+  height: 16px;
+  background: rgba(199,164,143,0.40); /* 描边色 */
+  transform: translateY(-7px) rotate(45deg);
+  border-radius: 3px;
+  pointer-events: none;
+}
+
+.bubble::before{
+  content: "";
+  position: absolute;
+  right: 19px;   /* +1px 内缩 */
+  top: 100%;
+  width: 14px;
+  height: 14px;
+  background: rgba(255,255,255,0.92); /* 与泡泡主体一致 */
+  transform: translateY(-6px) rotate(45deg);
+  border-radius: 3px;
+  pointer-events: none;
+}
+
