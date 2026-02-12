@@ -10,6 +10,20 @@ moods:
   sad: "eli_sad_down"
   pleading: "eli_pleading"
 
+# 状态显示
+status_labels:
+  normal: 待机ing
+  kiss: 被亲亲了！
+  hug: 收到抱抱！
+  confess: 被告白了！
+  surprise: 收到小惊喜
+  style: 被整理造型
+  sleep: 眯觉呼噜噜
+  tap_lv1: 戳戳一级
+  tap_lv2: 戳戳二级
+  tap_lv3: 戳戳三级
+  tap_lv4: 戳戳四级
+
 # 抽语料的小规则（你也可以先不管）
 rules:
   avoid_repeat_last_n: 2
