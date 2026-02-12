@@ -162,6 +162,28 @@ let tapLockUntil = 0;
 let bounceLockUntil = 0;
 let rapidLockUntil = 0;
 
+let tapIdleTimer = null;
+
+function scheduleTapIdleReset(){
+  const idleReset = CFG?.pools?.tap?.params?.idle_reset_ms ?? 10000;
+  if (tapIdleTimer) clearTimeout(tapIdleTimer);
+  tapIdleTimer = setTimeout(() => {
+    // 只有在“非睡觉”时做回落；睡觉由 wake-on-tap 逻辑管理
+    if (sleeping) return;
+
+    tapTimes = [];
+    tapLockUntil = 0;
+    rapidLockUntil = 0;
+    lastTapAt = 0;
+
+    setImage(CFG.moods.neutral);
+    setMood("normal");
+
+    // 顺便让泡泡淡出（如果你现在是隐藏泡泡的逻辑）
+    try{ hideBubble?.(); }catch{}
+  }, idleReset);
+}
+
 function pruneTapTimes(t, windowMs){
   const cutoff = t - windowMs;
   while (tapTimes.length && tapTimes[0] < cutoff) tapTimes.shift();
@@ -204,6 +226,7 @@ function handleTap(){
       sleepTapTimes = [];
     }
     lastTapAt = t0;
+    scheduleTapIdleReset();
 
     // 计数（睡觉时戳也算“今日戳戳”）
     incCounter("taps", 1);
@@ -237,6 +260,7 @@ function handleTap(){
     setMood("normal");
   }
   lastTapAt = t;
+  scheduleTapIdleReset();
 
   incCounter("taps", 1);
 
