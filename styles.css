@@ -126,7 +126,8 @@ body{
   width: min(80%, 420px);
   height: calc(100% - 18px);
   display: grid;
-  place-items: center;
+  place-items: end center;   /* ✅ 垂直贴底、水平居中 */
+  padding-bottom: 12px;      /* ✅ 让它离底部留一点呼吸感（可调 0~16） */
   margin-top: 18px;
 }
 
