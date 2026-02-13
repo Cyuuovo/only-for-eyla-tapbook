@@ -12,6 +12,7 @@ moods:
 
 # 状态显示
 status_labels:
+  welcome: 欢迎小狐狸
   normal: 待机ing
   kiss: 被亲亲了！
   hug: 收到抱抱！
