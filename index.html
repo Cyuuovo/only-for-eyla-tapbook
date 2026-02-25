@@ -96,5 +96,19 @@
 
   <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
   <script src="./script.js"></script>
+
+  <!-- 想对Eli说：输入弹窗 -->
+  <div class="modal" id="sayModal" aria-hidden="true">
+    <div class="modal__backdrop" data-close="sayModal"></div>
+    <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="sayTitle">
+      <div class="modal__header">
+        <div class="modal__title" id="sayTitle">今天想对Eli说什么呢？</div>
+        <button class="modal__close" type="button" aria-label="关闭" data-close="sayModal">✕</button>
+      </div>
+      <textarea class="modal__input" id="sayInput" rows="4" placeholder="在这里写下想说的话…"></textarea>
+      <button class="modal__primary" type="button" id="saySend">告诉Eli</button>
+    </div>
+  </div>
+
 </body>
 </html>

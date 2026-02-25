@@ -21,7 +21,7 @@ const sayInput = document.getElementById("sayInput");
 const saySend = document.getElementById("saySend");
 
 function openModal(modal){
-  if(!modal) return;
+  if(!modal) { console.warn('Modal missing'); return; }
   modal.classList.add("is-open");
   modal.setAttribute("aria-hidden","false");
   // focus input if exists
@@ -441,7 +441,14 @@ function handleAction(actionKey){
 
   // 特殊按钮：想对Eli说（弹窗输入）
   if (actionKey === "say_to_eli"){
-    openModal(sayModal);
+    if (sayModal){ openModal(sayModal); return; }
+    // fallback: 无弹窗时直接回应
+    const btn = CFG?.pools?.buttons?.say_to_eli;
+    const pool = btn?.lines || [];
+    const line = (pool && pool.length) ? weightedPick(pool, "btn_say_to_eli") : { text: "我收到了！来自小狐狸的悄悄话🥺", mood: "shy" };
+    if (btn?.counter) incCounter(btn.counter, 1);
+    applyLine(line, "say_to_eli");
+    scheduleResetIfNeeded();
     return;
   }
 
