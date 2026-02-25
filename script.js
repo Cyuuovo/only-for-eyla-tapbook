@@ -99,6 +99,13 @@ window.addEventListener('unhandledrejection', (ev) => {
 
 const now = () => Date.now();
 
+// ======= v1.1: “想对Eli说” 弹窗保证函数
+// 早期版本会在 JS 里动态创建弹窗；现在弹窗已写在 index.html 里。
+// 为了兼容旧代码/避免 ReferenceError，这里保留一个空实现即可。
+function ensureSayModal(){
+  // no-op (modal markup is already present in index.html)
+}
+
 function formatToday(){
   const d = new Date();
   const ws = ['周日','周一','周二','周三','周四','周五','周六'];
