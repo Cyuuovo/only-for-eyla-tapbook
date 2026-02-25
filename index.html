@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Only for Eyla — Eli每日戳戳互动本</title>
+  <title>Only for Eyla <span class="build">BUILD: v3</span> — Eli每日戳戳互动本</title>
 
   <link rel="manifest" href="./manifest.json" />
   <meta name="theme-color" content="#ffffff" />
@@ -15,7 +15,7 @@
     <!-- 标题栏 -->
     <header class="topbar">
       <div class="topbar__title">
-        <div class="topbar__main">Only for Eyla</div>
+        <div class="topbar__main">Only for Eyla <span class="build">BUILD: v3</span></div>
         <div class="topbar__sub">—— Eli每日戳戳互动本</div>
       </div>
       <button class="topbar__icon" type="button" aria-label="设置（占位）" title="设置（占位）" id="settingsBtn">⚙️</button>
@@ -107,6 +107,7 @@
       </div>
       <textarea class="modal__input" id="sayInput" rows="4" placeholder="在这里写下想说的话…"></textarea>
       <button class="modal__primary" type="button" id="saySend">告诉Eli</button>
+      <div class="modal__hint" id="buildStamp" aria-hidden="true"></div>
     </div>
   </div>
 
