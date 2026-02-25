@@ -511,3 +511,109 @@ body.dark .modal__item{
   transform: translateX(22px);
 }
 
+
+
+/* ---------- Modal (Say to Eli) ---------- */
+.modal{
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: none;
+}
+.modal.is-open{ display: block; }
+
+.modal__backdrop{
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+}
+
+.modal__panel{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(92vw, 420px);
+  background: rgba(255,255,255,0.96);
+  border: 1px solid rgba(199,164,143,0.40);
+  border-radius: 18px;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.18);
+  padding: 14px;
+}
+
+.modal__header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.modal__title{
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.modal__close{
+  border: 0;
+  background: transparent;
+  font-size: 18px;
+  cursor: pointer;
+  color: var(--text);
+}
+
+.modal__input{
+  width: 100%;
+  resize: none;
+  border-radius: 14px;
+  border: 1px solid rgba(199,164,143,0.35);
+  background: rgba(253,243,231,0.55);
+  padding: 10px 12px;
+  font-size: 14px;
+  color: var(--text);
+  outline: none;
+  box-sizing: border-box;
+  margin-bottom: 12px;
+}
+
+.modal__input:focus{
+  border-color: rgba(184,157,138,0.65);
+  box-shadow: 0 0 0 4px rgba(184,157,138,0.18);
+}
+
+.modal__primary{
+  width: 100%;
+  border: 0;
+  border-radius: 16px;
+  padding: 12px 14px;
+  font-weight: 800;
+  cursor: pointer;
+  color: #3E3E3E;
+  background: linear-gradient(180deg, rgba(255,255,255,0.78), rgba(255,255,255,0.22));
+  box-shadow: 0 10px 18px rgba(0,0,0,0.10);
+  border: 1px solid rgba(199,164,143,0.45);
+}
+
+/* Dark mode modal */
+body.dark .modal__panel{
+  background: rgba(44,38,34,0.96);
+  border-color: rgba(255,255,255,0.10);
+}
+body.dark .modal__title,
+body.dark .modal__close{
+  color: rgba(255,255,255,0.92);
+}
+body.dark .modal__input{
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.92);
+}
+body.dark .modal__input::placeholder{
+  color: rgba(255,255,255,0.55);
+}
+body.dark .modal__primary{
+  color: rgba(255,255,255,0.92);
+  background: linear-gradient(180deg, rgba(255,255,255,0.14), rgba(255,255,255,0.06));
+  border-color: rgba(255,255,255,0.14);
+}

@@ -10,33 +10,13 @@ moods:
   sad: "eli_sad_down"
   pleading: "eli_pleading"
 
-# 状态显示
-status_labels:
-  welcome: 欢迎小狐狸
-  normal: 待机ing
-  kiss: 被亲亲了！
-  hug: 收到抱抱！
-  confess: 被告白了！
-  surprise: 收到小惊喜
-  groom: 被整理造型
-  nap: 眯觉呼噜噜
-  sleep: 眯觉呼噜噜
-  tap_lv1: 超级开心
-  tap_lv2: 有点害羞
-  tap_lv3: 略显局促
-  tap_lv4: 戳炸毛了
-  dog_mode: 边牧形态！
-  say_to_eli: 收到悄悄话
-  notes: 便条跳转
-
-
 # 抽语料的小规则（你也可以先不管）
 rules:
   avoid_repeat_last_n: 2
   default_weight: 1
 
   # 按钮互动后自动回落（睡觉除外）
-  action_reset_ms: 3000
+  action_reset_ms: 5000
 
   # 睡觉：保持睡，直到被唤醒
   sleep_persist: true
@@ -81,7 +61,7 @@ pools:
   tap:
     params:
       window_ms: 120000        # 2分钟滚动计数窗口
-      idle_reset_ms: 3000     # 3秒无戳清空计数并回到normal
+      idle_reset_ms: 10000     # 10秒无戳清空计数并回到normal
       thresholds:              # 计数分级（基于 window_ms 内的tap次数）
         lv1: [1, 4]
         lv2: [5, 10]
@@ -210,15 +190,3 @@ pools:
           mood: sleep
         - text: "有我在，就不用担心做噩梦啦。"
           mood: sleep
-
-dog_mode:
-      counter: dog_mode
-      lines:
-        - text: "嗷呜…变成会缠着Eyla的边牧先生啦！"
-          mood: neutral
-
-    say_to_eli:
-      counter: say_to_eli
-      lines:
-        - text: "我收到了！来自小狐狸的悄悄话🥺"
-          mood: shy

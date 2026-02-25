@@ -15,6 +15,29 @@ const dateText = document.getElementById("dateText");
 
 // ===== 设置 & 夜间模式 =====
 const settingsBtn = document.getElementById("settingsBtn");
+
+const sayModal = document.getElementById("sayModal");
+const sayInput = document.getElementById("sayInput");
+const saySend = document.getElementById("saySend");
+
+function openModal(modal){
+  if(!modal) return;
+  modal.classList.add("is-open");
+  modal.setAttribute("aria-hidden","false");
+  // focus input if exists
+  try{
+    if (modal === sayModal && sayInput){
+      sayInput.value = "";
+      setTimeout(()=>{ try{ sayInput.focus(); }catch{} }, 0);
+    }
+  }catch{}
+}
+function closeModal(modal){
+  if(!modal) return;
+  modal.classList.remove("is-open");
+  modal.setAttribute("aria-hidden","true");
+}
+
 const settingsModal = document.getElementById("settingsModal");
 const themeToggle = document.getElementById("themeToggle");
 const THEME_KEY = "ofe_theme";
@@ -416,6 +439,18 @@ function handleAction(actionKey){
     wakeUp("被你叫醒了……哼。");
   }
 
+  // 特殊按钮：想对Eli说（弹窗输入）
+  if (actionKey === "say_to_eli"){
+    openModal(sayModal);
+    return;
+  }
+
+  // 特殊按钮：Eli留下的便条（外链）
+  if (actionKey === "notes"){
+    window.open("https://cyuuovo.github.io/eli-time-capsule-calendar/", "_blank", "noopener,noreferrer");
+    return;
+  }
+
   if (actionKey === "nap"){
     sleeping = true;
     const pool = CFG?.pools?.buttons?.nap?.lines || [];
@@ -476,6 +511,29 @@ async function init(){
   document.querySelectorAll(".action").forEach(btn => {
     btn.addEventListener("click", () => handleAction(btn.dataset.action));
   });
+
+  // 弹窗：想对Eli说
+  if (sayModal){
+    // 点击遮罩/关闭按钮关闭
+    sayModal.addEventListener("click", (e) => {
+      const t = e.target;
+      if (t && t.dataset && t.dataset.close === "sayModal") closeModal(sayModal);
+    });
+  }
+  if (saySend){
+    saySend.addEventListener("click", () => {
+      // 不保存输入，只给Eli固定回应
+      closeModal(sayModal);
+      const btn = CFG?.pools?.buttons?.say_to_eli;
+      const pool = btn?.lines || [];
+      const line = (pool && pool.length) ? weightedPick(pool, "btn_say_to_eli") : { text: "我收到了！来自小狐狸的悄悄话🥺", mood: "shy" };
+      // 输入内容不展示、不存储
+      if (btn?.counter) incCounter(btn.counter, 1);
+      applyLine(line, "say_to_eli");
+      scheduleResetIfNeeded();
+    });
+  }
+
 }
 
 init().catch(err => {
