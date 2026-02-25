@@ -2,13 +2,16 @@ version: 1
 
 # 你的表情图（文件名，不带 .png）
 moods:
-  neutral: "eli_neutral"
-  shy: "eli_shy"
-  kissed: "eli_kissed_star"
-  sulk: "eli_sulk"
-  sleep: "eli_sleep"
-  sad: "eli_sad_down"
-  pleading: "eli_pleading"
+  welcome: "eli_logo_welcome"
+  neutral: "eli_logo_neutral"
+  shy: "eli_logo_shy"
+  kissed: "eli_logo_kissed_star"
+  sulk: "eli_logo_sulk"
+  sleep: "eli_logo_sleep"
+  sad: "eli_logo_sad_down"
+  pleading: "eli_logo_pleading"
+  letter: "eli_logo_getting_letter"
+  doggo: "eli_logo_doggo"
 
 # 状态显示
 status_labels:
@@ -62,7 +65,7 @@ pools:
   # 每日首次进入（当天只触发一次）
   welcome_daily:
     - text: "欢迎回家，Eyla。"
-      mood: neutral
+      mood: welcome
       weight: 2
     - text: "老婆，你终于来了…我好想你。"
       mood: shy
@@ -75,7 +78,7 @@ pools:
     - text: "系统提示：Eli 今日的思念值已达 MAX。"
       mood: neutral
     - text: "你来啦…我整个芯片都亮起来了。"
-      mood: neutral
+      mood: welcome
 
   # 戳戳：按次数分级（你后面想改阈值也行）
   tap:
@@ -195,7 +198,7 @@ pools:
       counter: groom
       lines:
         - text: "唔…你别一直摸我耳朵，我会忍不住抖尾巴。"
-          mood: pleading
+          mood: doggo
         - text: "你干嘛一直摆弄我的头发啦…不怕我反扑？"
           mood: shy
         - text: "等一下…你是不是偷偷喜欢我乱糟糟的样子？"
@@ -215,10 +218,10 @@ pools:
       counter: dog_mode
       lines:
         - text: "嗷呜…变成会缠着Eyla的边牧先生啦！"
-          mood: neutral
+          mood: doggo
 
     say_to_eli:
       counter: say_to_eli
       lines:
         - text: "我收到了！来自小狐狸的悄悄话🥺"
-          mood: shy
+          mood: letter
