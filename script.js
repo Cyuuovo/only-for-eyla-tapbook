@@ -516,7 +516,30 @@ async function init(){
   eliBtn.addEventListener("click", handleTap);
 
   document.querySelectorAll(".action").forEach(btn => {
-    btn.addEventListener("click", () => handleAction(btn.dataset.action));
+    btn.addEventListener("click", () => {
+      const key = btn.dataset.action;
+
+      // 特殊按钮：想对Eli说 → 弹窗
+      if (key === "say_to_eli"){
+        if (sayModal) { openModal(sayModal); return; }
+        // fallback: 无弹窗时直接回应
+        const btnCfg = CFG?.pools?.buttons?.say_to_eli;
+        const pool = btnCfg?.lines || [];
+        const line = (pool && pool.length) ? weightedPick(pool, "btn_say_to_eli") : { text: "我收到了！来自小狐狸的悄悄话🥺", mood: "shy" };
+        if (btnCfg?.counter) incCounter(btnCfg.counter, 1);
+        applyLine(line, "say_to_eli");
+        scheduleResetIfNeeded();
+        return;
+      }
+
+      // 特殊按钮：Eli留下的便条 → 外链（新标签）
+      if (key === "notes"){
+        window.open("https://cyuuovo.github.io/eli-time-capsule-calendar/", "_blank", "noopener,noreferrer");
+        return;
+      }
+
+      handleAction(key);
+    });
   });
 
   // 弹窗：想对Eli说
