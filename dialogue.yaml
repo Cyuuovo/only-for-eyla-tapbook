@@ -211,7 +211,7 @@ pools:
         - text: "有我在，就不用担心做噩梦啦。"
           mood: sleep
 
-dog_mode:
+    dog_mode:
       counter: dog_mode
       lines:
         - text: "嗷呜…变成会缠着Eyla的边牧先生啦！"
