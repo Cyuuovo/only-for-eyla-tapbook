@@ -103,7 +103,44 @@ const now = () => Date.now();
 // 早期版本会在 JS 里动态创建弹窗；现在弹窗已写在 index.html 里。
 // 为了兼容旧代码/避免 ReferenceError，这里保留一个空实现即可。
 function ensureSayModal(){
-  // no-op (modal markup is already present in index.html)
+  // 517c5bb9Ff1a5f397a97 DOM 53ef80fd51995728 index.html 768466f4540e9762Ff08811a672c51486267884c65f64f1a53d64e0d5230Ff09
+  if(!sayModal){
+    sayModal = document.getElementById("sayModal");
+    sayInput = document.getElementById("sayInput");
+    saySend = document.getElementById("saySend");
+    sayCancel = document.getElementById("sayCancel");
+  }
+  if(!sayModal || __sayBound) return;
+  __sayBound = true;
+
+  // 70b951fb906e7f69517395ed
+  sayModal.addEventListener("click", (e)=>{
+    if(e.target === sayModal) closeModal(sayModal);
+  });
+
+  // 53d66d88
+  if(sayCancel){
+    sayCancel.addEventListener("click", ()=> closeModal(sayModal));
+  }
+
+  // 53d19001Ff084e0d4fdd5b5851855bb9Ff1a53ea89e653d1 Eli 768456de5e94Ff09
+  if(saySend){
+    saySend.addEventListener("click", ()=>{
+      const msg = ((sayInput && sayInput.value) ? sayInput.value : "").trim();
+      // 8fd991cc668265f64e0d4fdd5b58 msgFf0c53ea5f534f5c201c8bf44e86609460948bdd201d
+      closeModal(sayModal);
+      if(sayInput) sayInput.value = "";
+      // 7528 YAML 91cc say_to_eli 768490a353e556de5e94
+      playAction("say_to_eli");
+    });
+  }
+
+  // ESC 517395edFf0853ea7ed15b9a4e006b21Ff09
+  document.addEventListener("keydown", (e)=>{
+    if(e.key === "Escape" && sayModal && sayModal.classList && sayModal.classList.contains("is-open")){
+      closeModal(sayModal);
+    }
+  });
 }
 
 function formatToday(){
