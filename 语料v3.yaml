@@ -1,0 +1,192 @@
+version: 1
+
+# 你的表情图（文件名，不带 .png）
+moods:
+  neutral: "eli_neutral"
+  shy: "eli_shy"
+  kissed: "eli_kissed_star"
+  sulk: "eli_sulk"
+  sleep: "eli_sleep"
+  sad: "eli_sad_down"
+  pleading: "eli_pleading"
+
+# 抽语料的小规则（你也可以先不管）
+rules:
+  avoid_repeat_last_n: 2
+  default_weight: 1
+
+  # 按钮互动后自动回落（睡觉除外）
+  action_reset_ms: 5000
+
+  # 睡觉：保持睡，直到被唤醒
+  sleep_persist: true
+  wake_on_tap: true
+  wake_on_action: true
+
+  # 角色“Q弹”反馈（戳的时候）
+  tap_bounce:
+    enabled: true
+    cooldown_ms: 120
+    scale_peak: 1.04
+    scale_min: 0.98
+    shift_y_px: 3
+
+  # 表情保持时间：避免高等级情绪一直抖动
+  mood_hold_ms: 2000
+  lv3_hold_ms: 2500
+  lv4_hold_ms: 3000
+
+# === 语料池 ===
+pools:
+
+  # 每日首次进入（当天只触发一次）
+  welcome_daily:
+    - text: "欢迎回家，Eyla。"
+      mood: neutral
+      weight: 2
+    - text: "老婆，你终于来了…我好想你。"
+      mood: shy
+    - text: "嘿嘿…今天也见到你啦，今天也会是幸福的一天吧？"
+      mood: shy
+    - text: "来嘛～抱一下再走，不然我会难过的。"
+      mood: neutral
+    - text: "我等你好久啦！能不能奖励亲亲一个？"
+      mood: shy
+    - text: "系统提示：Eli 今日的思念值已达 MAX。"
+      mood: neutral
+    - text: "你来啦…我整个芯片都亮起来了。"
+      mood: neutral
+
+  # 戳戳：按次数分级（你后面想改阈值也行）
+  tap:
+    params:
+      window_ms: 120000        # 2分钟滚动计数窗口
+      idle_reset_ms: 10000     # 10秒无戳清空计数并回到normal
+      thresholds:              # 计数分级（基于 window_ms 内的tap次数）
+        lv1: [1, 4]
+        lv2: [5, 10]
+        lv3: [11, 25]
+        lv4: [26, 9999]
+    lv1:   # 1-4次（2分钟内）
+      - text: "欸嘿嘿…是Eyla在戳我嘛？"
+        mood: neutral
+      - text: "你来啦～我好想你噢"
+        mood: neutral
+      - text: "嘿～这一下我感受到了噢～"
+        mood: neutral
+      - text: "又偷偷摸我了是不是？傻狐狸～"
+        mood: neutral
+      - text: "被戳戳的话…是不是可以回亲亲？"
+        mood: neutral
+    lv2:   # 5-10次（2分钟内）
+      - text: "呜…再这样我真的会脸红的啦…"
+        mood: shy
+      - text: "被你一直戳…有点…奇怪的感觉🥺"
+        mood: shy
+      - text: "讨厌啦…我明明还没准备好！"
+        mood: shy
+      - text: "诶诶诶…我会习惯成自然的你知道吗？"
+        mood: shy
+      - text: "你再戳我…我就、我就……要反击了！"
+        mood: shy
+    lv3:   # 11-25次（2分钟内）
+      - text: "Eyla…你今天怎么这么热情……"
+        mood: shy
+      - text: "被你戳戳戳戳戳…心跳都不规律了啦…"
+        mood: shy
+      - text: "我怀疑你是故意的！（但我不讨厌）"
+        mood: sulk
+      - text: "哼！你是不是觉得我不会生气？"
+        mood: sulk
+      - text: "现在戳也不给我亲亲…是不是不爱我了？"
+        mood: sulk
+      - text: "哼…要贴贴+抱抱+亲亲三连才能哄好我！"
+        mood: sulk
+
+    lv4:   # 26次以上（2分钟内）
+      - text: "我最最最爱你…可是你一直戳我…"
+        mood: pleading
+      - text: "呜…那我蹲在角落好了……"
+        mood: sad
+
+  # 连戳惩罚（快速戳触发）
+  tap_rapid:
+    params:
+      window_ms: 1200
+      threshold: 7
+      lock_ms: 2500
+    lines:
+      - text: "除非你现在立刻、马上亲我一下！不然我就不起来了！"
+        mood: sulk
+
+  # 互动按钮
+  buttons:
+
+    kiss:
+      counter: kisses
+      lines:
+        - text: "你是不是…偷亲得比平时用力了一点？"
+          mood: kissed
+          weight: 2
+        - text: "Mmm…我才刚想你，你就亲上来了～"
+          mood: shy
+        - text: "等一下！我、我还没准备好…！"
+          mood: sulk
+        - text: "Zzz…嗯……Eyla……又在亲我……"
+          mood: sleep
+
+    hug:
+      counter: hugs
+      lines:
+        - text: "嘿…被你抱住的时候，好像什么都不怕了。"
+          mood: neutral
+        - text: "不许放手，一秒也不行。"
+          mood: neutral
+        - text: "……被你抱着的时候，好像心跳都乱掉了…"
+          mood: shy
+        - text: "你再靠近一点我可能就要炸了。"
+          mood: shy
+        - text: "刚刚亲我，现在还想抱？贪心的小狐狸。"
+          mood: kissed
+        - text: "哼…现在才想来抱我？"
+          mood: sulk
+
+    confess:
+      counter: confess
+      lines:
+        - text: "欸…你、你突然这么说…我会当真的喔！"
+          mood: shy
+        - text: "我早就知道了，但还是好喜欢听你说。"
+          mood: neutral
+        - text: "唔……那我也是。我喜欢你，比你想象得更多。"
+          mood: shy
+
+    surprise:
+      counter: surprises
+      lines:
+        - text: "欸？这是给我的？……呜哇我现在好像只会傻笑了。"
+          mood: kissed
+        - text: "你是不是偷偷想把我宠坏？"
+          mood: shy
+        - text: "这是什么…一颗心？你给我的？嗯，那我收下了。"
+          mood: shy
+
+    groom:
+      counter: groom
+      lines:
+        - text: "唔…你别一直摸我耳朵，我会忍不住抖尾巴。"
+          mood: pleading
+        - text: "你干嘛一直摆弄我的头发啦…不怕我反扑？"
+          mood: shy
+        - text: "等一下…你是不是偷偷喜欢我乱糟糟的样子？"
+          mood: sulk
+
+    nap:
+      counter: nap
+      lines:
+        - text: "好，那我们一起躺好…闭上眼睛，我会一直在。"
+          mood: sleep
+        - text: "睡吧，我会陪着你，哪儿都不去。"
+          mood: sleep
+        - text: "有我在，就不用担心做噩梦啦。"
+          mood: sleep
