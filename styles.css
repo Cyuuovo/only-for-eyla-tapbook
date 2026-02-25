@@ -393,82 +393,156 @@ body.dark .action::after{
 }
 
 
-/* ===== 设置弹窗（Modal）===== */
+/* Modals (Settings + Say-to-Eli) */
 .modal{
   position: fixed;
   inset: 0;
   z-index: 50;
-  display: none;
-}
-.modal.is-open{ display: block; }
-
-.modal__backdrop{
-  position: absolute;
-  inset: 0;
+  display: none;              /* hidden by default */
+  justify-content: center;
   background: rgba(0,0,0,0.22);
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
 
+.modal.is-open{
+  display: flex;
+}
+
+/* Shared panel basics */
 .modal__panel{
-  position: absolute;
-  left: 12px;
-  right: 12px;
-  bottom: calc(12px + env(safe-area-inset-bottom));
-  max-width: 520px;
-  margin: 0 auto;
-
-  border-radius: 18px;
-  background: var(--panel-strong);
-  box-shadow: var(--shadow);
-  border: 1px solid rgba(199,164,143,0.22);
-  padding: 14px 14px 12px;
+  background: rgba(255,255,255,0.96);
+  border: 1px solid rgba(199,164,143,0.20);
+  box-shadow: 0 16px 44px rgba(0,0,0,0.22);
 }
 
-.modal__header{
+/* --- Settings modal: bottom sheet --- */
+#settingsModal.modal{
+  align-items: flex-end;
+  padding: 16px;
+}
+#settingsModal .modal__panel{
+  width: min(92vw, 420px);
+  border-radius: 18px;
+  padding: 14px;
+}
+#settingsModal .modal__title{
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 10px;
+}
+#settingsModal .row{
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  margin-bottom: 10px;
+  padding: 10px 6px;
 }
-.modal__title{
-  font-weight: 900;
+#settingsModal .row__label{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+}
+#settingsModal .row__label b{
+  font-size: 14px;
   color: var(--text);
-  letter-spacing: 0.2px;
 }
-.modal__close{
-  border: 0;
+#settingsModal .row__label span{
+  font-size: 12px;
+  color: rgba(41,41,41,0.60);
+}
+#settingsModal .modal__close{
+  appearance:none;
+  border:0;
   background: transparent;
-  color: var(--muted);
-  font-size: 18px;
+  font-size: 22px;
   line-height: 1;
-  padding: 6px 8px;
+  color: rgba(41,41,41,0.55);
+  padding: 6px 10px;
   border-radius: 10px;
 }
-.modal__close:active{ transform: scale(0.98); }
+#settingsModal .modal__close:active{
+  background: rgba(0,0,0,0.05);
+}
 
-.modal__item{
-  display: flex;
+/* --- Say-to-Eli modal: centered dialog --- */
+#sayModal.modal{
   align-items: center;
-  justify-content: space-between;
-  padding: 12px 10px;
-  border-radius: 14px;
-  background: rgba(255,255,255,0.28);
+  padding: 22px;              /* slightly smaller so panel feels tighter */
 }
-body.dark .modal__item{
-  background: rgba(255,255,255,0.08);
+#sayModal .modal__panel{
+  width: min(92vw, 520px);
+  border-radius: 26px;
+  padding: 16px 16px 14px;    /* reduce bottom blank feeling */
 }
 
-.modal__label{
+/* header */
+#sayModal .modal__header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+#sayModal .modal__title{
+  font-size: 18px;
+  font-weight: 800;
   color: var(--text);
-  font-weight: 700;
+  margin: 0;
+}
+#sayModal .modal__close{
+  appearance:none;
+  border:0;
+  background: transparent;
+  font-size: 22px;
+  line-height: 1;
+  color: rgba(41,41,41,0.55);
+  padding: 8px 10px;
+  border-radius: 10px;
+}
+#sayModal .modal__close:active{
+  background: rgba(0,0,0,0.05);
 }
 
-.modal__hint{
+/* textarea + button */
+#sayModal .modal__input{
+  width: 100%;
+  height: 118px;              /* key: shrink overall dialog height */
+  max-height: 180px;
+  padding: 12px 12px;
+  border-radius: 16px;
+  border: 1px solid rgba(199,164,143,0.35);
+  background: rgba(255,255,255,0.90);
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--text);
+  resize: none;
+  outline: none;
+}
+#sayModal .modal__input:focus{
+  border-color: rgba(199,164,143,0.65);
+  box-shadow: 0 0 0 3px rgba(199,164,143,0.18);
+}
+#sayModal .modal__primary{
+  margin-top: 12px;
+  width: 100%;
+  height: 48px;
+  border-radius: 16px;
+  border: 1px solid rgba(199,164,143,0.35);
+  background: rgba(255,255,255,0.95);
+  color: var(--text);
+  font-size: 16px;
+  font-weight: 800;
+}
+#sayModal .modal__primary:active{
+  transform: translateY(1px);
+}
+#sayModal .modal__hint{
   margin-top: 10px;
-  color: var(--muted);
   font-size: 12px;
-  padding: 0 2px;
+  color: rgba(41,41,41,0.55);
+  min-height: 0;              /* avoid empty hint reserving space */
 }
 
 /* Switch */
